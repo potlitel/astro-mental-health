@@ -116,13 +116,16 @@ import { UI } from 'astrowind:config';
       document.querySelector('#header > div > div:last-child')?.classList.add('hidden');
     });
 
+    /*Apply sticky mode on user scroll */
     function applyHeaderStylesOnScroll() {
       const header = document.querySelector('#header[data-aw-sticky-header]');
       if (!header) return;
       if (lastKnownScrollPosition > 60 && !header.classList.contains('scroll')) {
         header.classList.add('scroll');
+        document.getElementById('backToTop')?.classList.remove('invisible');
       } else if (lastKnownScrollPosition <= 60 && header.classList.contains('scroll')) {
         header.classList.remove('scroll');
+        document.getElementById('backToTop')?.classList.add('invisible');
       }
       ticking = false;
     }
@@ -272,15 +275,21 @@ Math.easeInOutQuad = function (t, b, c, d) {
       };
 
       // show or hide the back-top-top button
-      const backToTop = document.querySelector("#backToTop");
-      if (document.body.scrollTop > 150 || document.documentElement.scrollTop > 150){
-          backToTop.classList.toggle("invisible");
-      } 
-      else
-        backToTop.classList.toggle("invisible");
-      // } else {
-      //   backToTop.classList.toggle("invisible");
+      // const backToTop = document.querySelector("#backToTop");
+      // if (document.body.scrollTop > 550 || document.documentElement.scrollTop > 550){
+      //     // backToTop.classList.toggle("invisible");
+      //     //backToTop?.classList.remove('invisible');
+      //     document.getElementById('backToTop')?.classList.remove('invisible');
+      // } 
+      // else{
+      //     // backToTop.classList.toggle("invisible");
+      //     // backToTop?.classList.add('visible');
+      //     document.getElementById('backToTop')?.classList.add('invisible');
       // }
+        
+      // document.getElementById('header')?.classList.remove('h-screen');
+      // document.getElementById('header')?.classList.remove('expanded');
+      // document.querySelector('#header nav')?.classList.add('hidden');
 
       this.observer = new IntersectionObserver(callback.bind(this), { threshold: [0, 0.25, 0.5, 0.99] });
 
